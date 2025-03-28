@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Municipal - Usuario</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Contenedor principal de la aplicación -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar sidebar-expanded">
+            <!-- Encabezado del sidebar -->
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-logo">
+                    <i class="fas fa-city"></i>
+                    <span class="sidebar-logo-text">SisGestMunicipal</span>
+                </a>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Menú del sidebar -->
+            <div class="sidebar-menu">
+                <div class="sidebar-menu-item" id="btn-dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-search">
+                    <i class="fas fa-search"></i>
+                    <span>Búsqueda</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-showActas">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Mostrar Actas</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </div>
+            </div>
+            
+            <!-- Pie del sidebar -->
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Cambiar Tema</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Overlay para móviles -->
+        <div class="sidebar-overlay"></div>
+        
+        <!-- Header móvil -->
+        <div class="mobile-header">
+            <button id="mobile-menu-btn" class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="#" class="mobile-logo">
+                <i class="fas fa-city"></i>
+                SisGestMunicipal
+            </a>
+            <button id="mobile-theme-toggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Sección Dashboard -->
+            <section id="section-dashboard" class="section">
+                <div class="header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">U</div>
+                            <div>
+                                <div class="user-name">Usuario</div>
+                                <div class="user-role">Usuario del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" id="card-search">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Búsqueda</h3>
+                        </div>
+                        <p class="dashboard-card-description">Busca establecimientos y genera informes.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-showActas">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Mostrar Actas</h3>
+                        </div>
+                        <p class="dashboard-card-description">Visualiza todas las actas registradas en el sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Mostrar Actas -->
+            <section id="section-showActas" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Mostrar Actas</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">U</div>
+                            <div>
+                                <div class="user-name">Usuario</div>
+                                <div class="user-role">Usuario del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lista de Actas</h3>
+                        <div class="card-header-actions">
+                            <span id="acta-count">Actas registradas: 0</span>
+                            <div class="search-box">
+                                <input type="text" id="search-actas" placeholder="Buscar...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N° Acta</th>
+                                        <th>Tema</th>
+                                        <th>Fecha</th>
+                                        <th>RUT</th>
+                                        <th>Establecimiento</th>
+                                        <th>RBD</th>
+                                        <th>Director</th>
+                                        <th>Dirección</th>
+                                        <th>Responsable</th>
+                                        <th>Teléfono</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="actas-table-body">
+                                    <!-- Los datos se generan dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="actas-pagination">
+                            <!-- La paginación se genera dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Búsqueda -->
+            <section id="section-search" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Búsqueda y Generación de Informes</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">U</div>
+                            <div>
+                                <div class="user-name">Usuario</div>
+                                <div class="user-role">Usuario del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Buscar Establecimiento</h3>
+                        <p>Ingrese el RBD del establecimiento</p>
+                    </div>
+                    <div class="card-content">
+                        <div class="search-form">
+                            <div class="search-inputs">
+                                <input type="text" id="search-acta-rbd" placeholder="Ingrese RBD">
+                            </div>
+                            <button type="button" id="search-acta-btn" class="btn btn-primary">Buscar</button>
+                        </div>
+                        <form id="acta-form" class="form hidden">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="acta-num">N° Acta:</label>
+                                    <input type="text" id="acta-num" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-fecha">Fecha:</label>
+                                    <input type="date" id="acta-fecha" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-rut">RUT:</label>
+                                    <input type="text" id="acta-rut" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-nombre">Establecimiento:</label>
+                                    <input type="text" id="acta-nombre" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-rbd">RBD:</label>
+                                    <input type="text" id="acta-rbd" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-director">Director:</label>
+                                    <input type="text" id="acta-director" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-direccion">Dirección:</label>
+                                    <input type="text" id="acta-direccion" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-responsable">Responsable:</label>
+                                    <input type="text" id="acta-responsable" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-telefono">Teléfono:</label>
+                                    <input type="text" id="acta-telefono" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="acta-motivo">Motivo Visita:</label>
+                                <textarea id="acta-motivo" class="form-textarea" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="acta-descripcion">Descripción de Equipos:</label>
+                                <textarea id="acta-descripcion" class="form-textarea" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="acta-recepcion">Recepción de Equipo:</label>
+                                <textarea id="acta-recepcion" class="form-textarea" rows="4"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Registrar y Descargar</button>
+                                <button type="button" class="btn btn-outline-primary" id="reset-acta">Vaciar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Contenedor de notificaciones toast -->
+    <div id="toast-container"></div>
+    
+    <!-- Scripts -->
+    <script src="../assets/js/tema.js"></script>
+    <script src="../assets/js/usuario.js"></script>
+</body>
+</html>

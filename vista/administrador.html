@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Municipal - Administrador</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Contenedor principal de la aplicación -->
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar sidebar-expanded">
+            <!-- Encabezado del sidebar -->
+            <div class="sidebar-header">
+                <a href="#" class="sidebar-logo">
+                    <i class="fas fa-city"></i>
+                    <span class="sidebar-logo-text">Municipalidad Ovalle</span>
+                </a>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <!-- Menú del sidebar -->
+            <div class="sidebar-menu">
+                <div class="sidebar-menu-item" id="btn-dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-register">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Registrar Datos</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-modify">
+                    <i class="fas fa-edit"></i>
+                    <span>Modificar Datos</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-delete">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Eliminar Datos</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-show">
+                    <i class="fas fa-building"></i>
+                    <span>Mostrar Establecimientos</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-showUsers">
+                    <i class="fas fa-users"></i>
+                    <span>Mostrar Usuarios</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-showActas">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Mostrar Actas</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-search">
+                    <i class="fas fa-search"></i>
+                    <span>Búsqueda</span>
+                </div>
+                <div class="sidebar-menu-item" id="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Cerrar Sesión</span>
+                </div>
+            </div>
+            
+            <!-- Pie del sidebar -->
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Cambiar Tema</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Overlay para móviles -->
+        <div class="sidebar-overlay"></div>
+        
+        <!-- Header móvil -->
+        <div class="mobile-header">
+            <button id="mobile-menu-btn" class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="#" class="mobile-logo">
+                <i class="fas fa-city"></i>
+                SisGestMunicipal
+            </a>
+            <button id="mobile-theme-toggle" class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Sección Dashboard -->
+            <section id="section-dashboard" class="section">
+                <div class="header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" id="card-register">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Registrar Datos</h3>
+                        </div>
+                        <p class="dashboard-card-description">Registra nuevos establecimientos y usuarios en el sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-modify">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Modificar Datos</h3>
+                        </div>
+                        <p class="dashboard-card-description">Modifica la información de establecimientos y usuarios existentes.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-delete">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Eliminar Datos</h3>
+                        </div>
+                        <p class="dashboard-card-description">Elimina establecimientos y usuarios del sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-show">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Mostrar Establecimientos</h3>
+                        </div>
+                        <p class="dashboard-card-description">Visualiza todos los establecimientos registrados en el sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-showUsers">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Mostrar Usuarios</h3>
+                        </div>
+                        <p class="dashboard-card-description">Visualiza todos los usuarios registrados en el sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-showActas">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Mostrar Actas</h3>
+                        </div>
+                        <p class="dashboard-card-description">Visualiza todas las actas registradas en el sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card" id="card-search">
+                        <div class="dashboard-card-header">
+                            <div class="dashboard-card-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3 class="dashboard-card-title">Búsqueda</h3>
+                        </div>
+                        <p class="dashboard-card-description">Busca establecimientos, usuarios y actas en el sistema.</p>
+                        <div class="dashboard-card-footer">
+                            <div class="dashboard-card-stat">Acceso rápido</div>
+                            <div class="dashboard-card-action">
+                                Acceder <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Registrar Datos -->
+            <section id="section-register" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Registrar Datos</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="establishment">Establecimiento</button>
+                        <button class="tab-btn" data-tab="user">Usuario</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="tab-establishment">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Registrar Datos del Establecimiento</h3>
+                                <p>Rellene los parámetros requeridos</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="establishment-form" class="form">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="rut">RUT:</label>
+                                            <input type="text" id="rut" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre del Establecimiento:</label>
+                                            <input type="text" id="nombre" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rbd">RBD:</label>
+                                            <input type="text" id="rbd" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="director">Director o Encargado:</label>
+                                            <input type="text" id="director" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección:</label>
+                                            <input type="text" id="direccion" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="telefono">Teléfono:</label>
+                                            <input type="text" id="telefono" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Registrar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="reset-establishment">Vaciar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-user">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Registro de Datos de Usuarios Internos</h3>
+                                <p>Rellene los parámetros requeridos</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="user-form" class="form">
+                                    <div class="form-group">
+                                        <label for="user-type-reg">Tipo de Usuario:</label>
+                                        <select id="user-type-reg" class="form-select" required>
+                                            <option value="" disabled selected>Seleccione un tipo</option>
+                                            <option value="Administrador">Administrador</option>
+                                            <option value="Usuario">Usuario</option>
+                                            <option value="Lector">Lector</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username-reg">Usuario:</label>
+                                        <input type="text" id="username-reg" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password-reg">Contraseña:</label>
+                                        <input type="password" id="password-reg" class="form-control" required>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Registrar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="reset-user">Vaciar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Modificar Datos -->
+            <section id="section-modify" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Modificar Datos</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="modify-establishment">Establecimiento</button>
+                        <button class="tab-btn" data-tab="modify-user">Usuario</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="tab-modify-establishment">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Modificar Datos del Establecimiento</h3>
+                                <p>Busque el establecimiento por RBD y RUT</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="search-form">
+                                    <div class="search-inputs">
+                                        <div class="form-group">
+                                            <label for="search-rbd">RBD:</label>
+                                            <input type="text" id="search-rbd" class="form-control" placeholder="Ingrese RBD">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="search-rut">RUT:</label>
+                                            <input type="text" id="search-rut" class="form-control" placeholder="Ingrese RUT">
+                                        </div>
+                                    </div>
+                                    <button type="button" id="search-establishment-btn" class="btn btn-primary">Buscar</button>
+                                </div>
+                                <form id="modify-establishment-form" class="form">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="mod-rut">RUT:</label>
+                                            <input type="text" id="mod-rut" class="form-control" required disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mod-nombre">Nombre del Establecimiento:</label>
+                                            <input type="text" id="mod-nombre" class="form-control" required disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mod-rbd">RBD:</label>
+                                            <input type="text" id="mod-rbd" class="form-control" required disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mod-director">Director o Encargado:</label>
+                                            <input type="text" id="mod-director" class="form-control" required disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mod-direccion">Dirección:</label>
+                                            <input type="text" id="mod-direccion" class="form-control" required disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mod-telefono">Teléfono:</label>
+                                            <input type="text" id="mod-telefono" class="form-control" required disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary" disabled>Modificar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="reset-mod-establishment">Vaciar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-modify-user">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Modificar Datos de Usuarios Internos</h3>
+                                <p>Busque el usuario por nombre</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="search-form">
+                                    <div class="search-inputs">
+                                        <div class="form-group">
+                                            <label for="search-username">Usuario:</label>
+                                            <input type="text" id="search-username" class="form-control" placeholder="Ingrese nombre de usuario">
+                                        </div>
+                                    </div>
+                                    <button type="button" id="search-user-btn" class="btn btn-primary">Buscar</button>
+                                </div>
+                                <form id="modify-user-form" class="form">
+                                    <div class="form-group">
+                                        <label for="mod-username">Usuario:</label>
+                                        <input type="text" id="mod-username" class="form-control" required disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mod-password">Contraseña:</label>
+                                        <input type="password" id="mod-password" class="form-control" required disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mod-user-type">Tipo de Usuario:</label>
+                                        <select id="mod-user-type" class="form-select" required disabled>
+                                            <option value="" disabled selected>Seleccione un tipo</option>
+                                            <option value="Administrador">Administrador</option>
+                                            <option value="Usuario">Usuario</option>
+                                            <option value="Lector">Lector</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary" disabled>Modificar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="reset-mod-user">Vaciar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Eliminar Datos -->
+            <section id="section-delete" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Eliminar Datos</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="delete-establishment">Establecimiento</button>
+                        <button class="tab-btn" data-tab="delete-user">Usuario</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="tab-delete-establishment">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Eliminar Datos del Establecimiento</h3>
+                                <p>Ingrese RBD y RUT del establecimiento a eliminar</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="delete-establishment-form" class="form">
+                                    <div class="form-group">
+                                        <label for="del-rbd">RBD:</label>
+                                        <input type="text" id="del-rbd" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="del-rut">RUT:</label>
+                                        <input type="text" id="del-rut" class="form-control" required>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="reset-del-establishment">Vaciar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-delete-user">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Eliminar Usuarios Internos</h3>
+                                <p>Ingrese el nombre del usuario a eliminar</p>
+                            </div>
+                            <div class="card-content">
+                                <form id="delete-user-form" class="form">
+                                    <div class="form-group">
+                                        <label for="del-username">Usuario:</label>
+                                        <input type="text" id="del-username" class="form-control" required>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="button" class="btn btn-outline-primary" id="reset-del-user">Vaciar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Mostrar Establecimientos -->
+            <section id="section-show" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Mostrar Establecimientos</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lista de Establecimientos</h3>
+                        <div class="card-header-actions">
+                            <span id="establishment-count">Establecimientos registrados: 0</span>
+                            <div class="search-box">
+                                <input type="text" id="search-establishments" placeholder="Buscar...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>RUT</th>
+                                        <th>Establecimiento</th>
+                                        <th>RBD</th>
+                                        <th>Director</th>
+                                        <th>Dirección</th>
+                                        <th>Teléfono</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="establishments-table-body">
+                                    <!-- Los datos se generan dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="establishments-pagination">
+                            <!-- La paginación se genera dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Mostrar Usuarios -->
+            <section id="section-showUsers" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Mostrar Usuarios</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lista de Usuarios</h3>
+                        <div class="card-header-actions">
+                            <span id="user-count">Usuarios registrados: 0</span>
+                            <div class="search-box">
+                                <input type="text" id="search-users" placeholder="Buscar...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Usuario</th>
+                                        <th>Contraseña</th>
+                                        <th>Tipo de Usuario</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body">
+                                    <!-- Los datos se generan dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="users-pagination">
+                            <!-- La paginación se genera dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Mostrar Actas -->
+            <section id="section-showActas" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Mostrar Actas</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lista de Actas</h3>
+                        <div class="card-header-actions">
+                            <span id="acta-count">Actas registradas: 0</span>
+                            <div class="search-box">
+                                <input type="text" id="search-actas" placeholder="Buscar...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>N° Acta</th>
+                                        <th>Tema</th>
+                                        <th>Fecha</th>
+                                        <th>RUT</th>
+                                        <th>Establecimiento</th>
+                                        <th>RBD</th>
+                                        <th>Director</th>
+                                        <th>Dirección</th>
+                                        <th>Responsable</th>
+                                        <th>Teléfono</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="actas-table-body">
+                                    <!-- Los datos se generan dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination" id="actas-pagination">
+                            <!-- La paginación se genera dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección Búsqueda -->
+            <section id="section-search" class="section hidden">
+                <div class="header">
+                    <h1 class="page-title">Búsqueda y Generación de Informes</h1>
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <div class="user-avatar">A</div>
+                            <div>
+                                <div class="user-name">Administrador</div>
+                                <div class="user-role">Administrador del Sistema</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Buscar Establecimiento</h3>
+                        <br>
+
+                        <p>Ingrese el RBD del establecimiento</p>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="search-form">
+                            
+                            <div class="search-inputs">
+                                <input type="text" id="search-acta-rbd" class="form-control" placeholder="Ingrese RBD">
+                            </div>
+                            <br>
+                            <button type="button" id="search-acta-btn" class="btn btn-primary">Buscar</button>
+                        </div>
+                        <form id="acta-form" class="form hidden">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="acta-num">N° Acta:</label>
+                                    <input type="text" id="acta-num" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-fecha">Fecha:</label>
+                                    <input type="date" id="acta-fecha" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-rut">RUT:</label>
+                                    <input type="text" id="acta-rut" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-nombre">Establecimiento:</label>
+                                    <input type="text" id="acta-nombre" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-rbd">RBD:</label>
+                                    <input type="text" id="acta-rbd" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-director">Director:</label>
+                                    <input type="text" id="acta-director" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-direccion">Dirección:</label>
+                                    <input type="text" id="acta-direccion" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-responsable">Responsable:</label>
+                                    <input type="text" id="acta-responsable" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="acta-telefono">Teléfono:</label>
+                                    <input type="text" id="acta-telefono" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="acta-motivo">Motivo Visita:</label>
+                                <textarea id="acta-motivo" class="form-textarea" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="acta-descripcion">Descripción de Equipos:</label>
+                                <textarea id="acta-descripcion" class="form-textarea" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="acta-recepcion">Recepción de Equipo:</label>
+                                <textarea id="acta-recepcion" class="form-textarea" rows="4"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Registrar y Descargar</button>
+                                <button type="button" class="btn btn-outline-primary" id="reset-acta">Vaciar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Contenedor de notificaciones toast -->
+    <div id="toast-container"></div>
+    
+    <!-- Scripts -->
+    <script src="../assets/js/tema.js"></script>
+    <script src="../assets/js/administrador.js"></script>
+</body>
+</html>
